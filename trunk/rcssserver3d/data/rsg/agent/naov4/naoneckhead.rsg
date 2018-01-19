@@ -3,7 +3,7 @@
 (RSG 0 1)
 (
     (templ $RobotX $RobotY $RobotZ $loadObj)
-    
+
     (def $NeckOffsetZ 0.11) ;0.1265)
     ;
     ;neck parameter
@@ -23,7 +23,7 @@
     (def $Neck_X        (eval $RobotX + $NeckCGX))
     (def $Neck_Y        (eval $RobotY + $NeckCGY))
     (def $Neck_Z        (eval $RobotZ + $NeckOffsetZ + $NeckCGZ))
-    
+
     ;
     ;head parameter
     ;
@@ -41,7 +41,7 @@
     (def $Head_X        (eval $RobotX + $HeadCGX))
     (def $Head_Y        (eval $RobotY + $HeadCGY))
     (def $Head_Z        (eval $RobotZ + $NeckOffsetZ + $HeadCGZ))
-    
+
     ;
     ;Head effector 1 parameter
     ;
@@ -50,7 +50,7 @@
     (def $he1X (eval -1 * $NeckCGX))
     (def $he1Y (eval -1 * $NeckCGY))
     (def $he1Z (eval -1 * $NeckCGZ))
-    
+
     ;
     ;Head effector 2 parameter
     ;
@@ -62,14 +62,14 @@
     (def $HeadGeoX (eval -1 * $HeadCGX))
     (def $HeadGeoY (eval -1 * $HeadCGY))
     (def $HeadGeoZ (eval -1 * $HeadCGZ + $Head_Radius))
-    
+
     ;
     ;Begin construct neck
     ;
     (nd Transform
         (setName neck)
         (setLocalPos $Neck_X $Neck_Y $Neck_Z)
-        
+
 	(nd Transform
 	    (setLocalPos $he1X $he1Y $he1Z)
 	    (importScene rsg/agent/naov4/capsule_appearance.rsg $Neck_Radius $Neck_Length matDarkGrey)
@@ -77,8 +77,8 @@
 
 	;; (importScene rsg/agent/naov4/capsule_physics.rsg    $Neck_Radius $Neck_Length $Neck_Mass)
         (importScene rsg/agent/naov4/body_physics.rsg $Neck_Mass 0 0 0 $NeckI11 $NeckI22 $NeckI33 $NeckI12 $NeckI13 $NeckI23)
-        
-        (importScene rsg/agent/naov4/joint2.rsg 
+
+        (importScene rsg/agent/naov4/joint2.rsg
                             hj1 he1
                             ../body ../../torso/body
                             $he1X $he1Y $he1Z
@@ -88,7 +88,7 @@
 
     ;
     ;Begin construct head
-    ;     
+    ;
     (nd Transform
         (setName head)
         (setLocalPos $Head_X $Head_Y $Head_Z)
@@ -105,7 +105,7 @@
                )
              )
            )
-	
+
            (false
              (importScene rsg/agent/naov4/sphere_appearance.rsg $Head_Radius matRed)
            )
@@ -119,10 +119,10 @@
 		(setLocalPosition $HeadGeoX $HeadGeoY $HeadGeoZ)
 		(importScene rsg/agent/naov4/contactjointhandler.rsg)
 		)
-	    )        
+	    )
         (importScene rsg/agent/naov4/joint4.rsg
                               hj2 he2
-                              ../body ../../neck/body 
+                              ../body ../../neck/body
                               $he2X $he2Y $he2Z
                               1 0 0
                               $he2_min $he2_max)
@@ -147,18 +147,18 @@
 		)
 	    )
 
-	;; (nd Transform
-	;;     (setLocalPos 0 $Head_Radius 0)
-	;;     (setLocalRotation 0 0 0)
-	;;     (nd ImagePerceptor
-	;; 	(setInterval 3)
-	;; 	(setOffScreen false)
-	;; 	(setResolution 320 240)
-	;; 	(setFOV 58)
-	;; 	(setZNear 0.003)
-	;; 	(setZFar 50)
-	;; 	)
-	;;     )
+	(nd Transform
+	   (setLocalPos 0 $Head_Radius 0)
+	   (setLocalRotation 0 0 0)
+	   (nd ImagePerceptor
+		(setInterval 3)
+		(setOffScreen false)
+		(setResolution 320 240)
+		(setFOV 58)
+		(setZNear 0.003)
+		(setZFar 50)
+		)
+	    )
 
         (nd ObjectState
             (setID head)
