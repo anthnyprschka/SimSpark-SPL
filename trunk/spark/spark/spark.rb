@@ -819,6 +819,9 @@ importBundle "agentsynceffector"
 importBundle "imageperceptor"
 
 #
+importBundle "rewardperceptor"
+
+#
 importBundle "batteryperceptor"
 
 #
