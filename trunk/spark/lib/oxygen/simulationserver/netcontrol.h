@@ -53,6 +53,7 @@ public:
             ST_UDP
         };
 
+    // Definition of what a client is
     struct Client
     {
     public:

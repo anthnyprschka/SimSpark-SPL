@@ -160,6 +160,13 @@
 		)
 	    )
 
+    (nd Transform
+       (setLocalPos 0 $Head_Radius 0)
+       (setLocalRotation 0 0 0)
+       (nd RewardPerceptor
+        )
+        )
+
         (nd ObjectState
             (setID head)
         )
