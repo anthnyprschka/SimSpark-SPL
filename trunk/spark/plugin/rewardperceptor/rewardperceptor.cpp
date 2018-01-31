@@ -58,8 +58,10 @@ void RewardPerceptor::OnUnlink()
 bool RewardPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
 {
 
+  cout << "RewardPerceptor::Percept executed" << endl;
   // TODO: This is the juicy part
   //
+
 
   // mRender->RequestRender();
 
@@ -67,9 +69,9 @@ bool RewardPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
   // if (size == 0)
   //   return false;
 
-  // Predicate &predicate = predList->AddPredicate();
-  // predicate.name = mPredicateName + "IMG";
-  // predicate.parameter.Clear();
+  Predicate &predicate = predList->AddPredicate();
+  predicate.name = mPredicateName + "R";
+  predicate.parameter.Clear();
 
   // ParameterList &sizeElement = predicate.parameter.AddList();
   // sizeElement.AddValue(std::string("s"));
@@ -81,8 +83,6 @@ bool RewardPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
   // const char* data = mRender->GetData();
   // string datacode = mB64Encoder.encode(data, size);
   // dataElement.AddValue(datacode);
-
-  cout << "RewardPerceptor::Percept executed" << endl;
 
   return true;
 }
