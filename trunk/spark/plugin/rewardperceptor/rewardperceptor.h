@@ -24,14 +24,11 @@
 #include <libb64/encode.h>
 #include <oxygen/agentaspect/perceptor.h>
 
-// TODO
-// Import GetPosition/GetWorldTransform stuff
-//
 
 class RewardPerceptor : public oxygen::Perceptor
 {
 public:
-    RewardPerceptor();
+  RewardPerceptor();
     virtual ~RewardPerceptor();
 
     //! \return true, if valid data is available and false otherwise.

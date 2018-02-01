@@ -26,6 +26,7 @@ using namespace oxygen;
 
 void CLASS(RewardPerceptor)::DefineClass()
 {
+   DEFINE_BASECLASS(oxygen/Perceptor);
    // TODO: Don't think I need any C function, do I?
    //
 }
