@@ -48,6 +48,8 @@ isfinite( float f )
 }
 #endif
 
+// Not sure what PrePhysicsUpdateInternal is supposed to mean...
+// Where is the actual PhysicsUpdate then?
 void
 BeamEffector::PrePhysicsUpdateInternal(float /*deltaTime*/)
 {
@@ -65,7 +67,7 @@ BeamEffector::PrePhysicsUpdateInternal(float /*deltaTime*/)
     boost::shared_ptr<BeamAction> beamAction =
         dynamic_pointer_cast<BeamAction>(mAction);
 
-   mAction.reset();
+    mAction.reset();
 
     if (beamAction.get() == 0)
     {
@@ -75,58 +77,62 @@ BeamEffector::PrePhysicsUpdateInternal(float /*deltaTime*/)
     }
 
     // the beam effector only has an effect in PM_BeforeKickOff
-    if (mGameState->GetPlayMode() == PM_BeforeKickOff
-        || mGameState->GetPlayMode() == PM_Goal_Left
-        || mGameState->GetPlayMode() == PM_Goal_Right)
-    {
-        Vector3f pos;
-        pos[0] = beamAction->GetPosX() + mBeamNoiseXY*(*(mNoiseRng.get()))();
-        pos[1] = beamAction->GetPosY() + mBeamNoiseXY*(*(mNoiseRng.get()))();
+    // if (mGameState->GetPlayMode() == PM_BeforeKickOff
+    //     || mGameState->GetPlayMode() == PM_Goal_Left
+    //     || mGameState->GetPlayMode() == PM_Goal_Right)
+    // {
+    // We've just enabled the BeamEffector at all times
 
-        float angle = beamAction->GetXYAngle() + mBeamNoiseAngle*(*(mNoiseRng.get()))();
+    Vector3f pos;
+    pos[0] = beamAction->GetPosX() + mBeamNoiseXY*(*(mNoiseRng.get()))();
+    pos[1] = beamAction->GetPosY() + mBeamNoiseXY*(*(mNoiseRng.get()))();
 
-        // reject nan or infinite numbers in the beam position
-        if (
-            (! gIsFinite(pos[0])) ||
-            (! gIsFinite(pos[1]))
-            )
-            {
-                return;
-            }
+    float angle = beamAction->GetXYAngle() + mBeamNoiseAngle*(*(mNoiseRng.get()))();
 
-        // an agent can only beam within it's own field half
-        float minX = -mFieldLength/2;
-        pos[0] = std::max<float>(pos[0],minX);
-        pos[0] = std::min<float>(pos[0],0.0f);
-
-        //float minY = -mFieldWidth/2;
-        //float maxY = mFieldWidth/2;
-        //pos[1] = std::max<float>(minY,pos[1]);
-        //pos[1] = std::min<float>(maxY,pos[1]);
-
-        // fix z coordinate
-        pos[2] = mAgentRadius;
-
-        // swap x and y coordinates accordingly for the current
-        // team; after the flip pos is global and not independent
-        // on the team
-        pos = SoccerBase::FlipView(pos, mAgentState->GetTeamIndex());     
-
-        boost::shared_ptr<Transform> agentAspect;
-        SoccerBase::GetTransformParent(*this, agentAspect);
-        if (agentAspect.get() == 0)
+    // reject nan or infinite numbers in the beam position
+    if (
+        (! gIsFinite(pos[0])) ||
+        (! gIsFinite(pos[1]))
+        )
         {
-            GetLog()->Error()
-            << "ERROR: (BeamEffector) cannot get AgentAspect\n";
             return;
         }
-        
-        TTeamIndex team = mAgentState->GetTeamIndex();
-        angle += mGameState->RequestInitOrientation(team);
 
-        if (!SoccerBase::MoveAndRotateAgent(agentAspect, pos, angle))
-            return;
+    // an agent can only beam within it's own field half
+    float minX = -mFieldLength/2;
+    pos[0] = std::max<float>(pos[0],minX);
+    pos[0] = std::min<float>(pos[0],0.0f);
+
+    //float minY = -mFieldWidth/2;
+    //float maxY = mFieldWidth/2;
+    //pos[1] = std::max<float>(minY,pos[1]);
+    //pos[1] = std::min<float>(maxY,pos[1]);
+
+    // fix z coordinate
+    pos[2] = mAgentRadius;
+
+    // swap x and y coordinates accordingly for the current
+    // team; after the flip pos is global and not independent
+    // on the team
+    pos = SoccerBase::FlipView(pos, mAgentState->GetTeamIndex());
+
+    boost::shared_ptr<Transform> agentAspect;
+    SoccerBase::GetTransformParent(*this, agentAspect);
+    if (agentAspect.get() == 0)
+    {
+        GetLog()->Error()
+        << "ERROR: (BeamEffector) cannot get AgentAspect\n";
+        return;
     }
+
+    TTeamIndex team = mAgentState->GetTeamIndex();
+    angle += mGameState->RequestInitOrientation(team);
+
+    if (!SoccerBase::MoveAndRotateAgent(agentAspect, pos, angle))
+        return;
+
+    // Enable this all the time
+    // }
 }
 
 boost::shared_ptr<ActionObject>
@@ -171,9 +177,9 @@ BeamEffector::GetActionObject(const Predicate& predicate)
 void
 BeamEffector::OnLink()
 {
-    SoccerBase::GetBody(*this,mBody);
+    SoccerBase::GetBody(*this, mBody);
     SoccerBase::GetGameState(*this, mGameState);
-    SoccerBase::GetAgentState(*this,mAgentState);
+    SoccerBase::GetAgentState(*this, mAgentState);
 
     mFieldWidth = 64.0f;
     SoccerBase::GetSoccerVar(*this,"FieldWidth",mFieldWidth);

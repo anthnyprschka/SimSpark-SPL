@@ -29,9 +29,9 @@ using namespace std;
 
 RewardPerceptor::RewardPerceptor() : oxygen::Perceptor()
 {
-    // TODO: Do I even need this?
-    //
-    SetPredicateName("");
+  SetPredicateName("");
+
+  salt::Vector3f lastPos(0,0,0);
 }
 
 RewardPerceptor::~RewardPerceptor()
@@ -59,30 +59,46 @@ bool RewardPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
 {
 
   cout << "RewardPerceptor::Percept executed" << endl;
+
   // TODO: This is the juicy part
   //
 
+  // We want positions relative to the closest parent transform node
+  // Which node is this though?
+  boost::shared_ptr<Transform> parent = dynamic_pointer_cast<Transform>
+    (FindParentSupportingClass<Transform>().lock());
 
-  // mRender->RequestRender();
+  // Get current position of agent
+  salt::Vector3f myPos(0,0,0);
 
-  // int size = mRender->GetDataSize();
-  // if (size == 0)
-  //   return false;
+  if (parent.get() == 0)
+  {
+    GetLog()->Warning()
+      << "WARNING: (PerfectVisionPerceptor) parent node is "
+      << "not derived from TransformNode\n";
+  }
+  else
+  {
+    myPos = parent->GetWorldTransform().Pos();
+  }
+
+  // Calculate disposition in 3 dimensions
+  salt::Vector3f = myPos - lastPos;
+
+  // Choose reward
+  // Which dimension is our reward dimension though?
+  // Should be either length, or depth, definitely not height
+
 
   Predicate &predicate = predList->AddPredicate();
   predicate.name = mPredicateName + "R";
   predicate.parameter.Clear();
 
-  // ParameterList &sizeElement = predicate.parameter.AddList();
-  // sizeElement.AddValue(std::string("s"));
-  // sizeElement.AddValue(mRender->GetWidth());
-  // sizeElement.AddValue(mRender->GetHeight());
-
-  // ParameterList &dataElement = predicate.parameter.AddList();
-  // dataElement.AddValue(std::string("d"));
-  // const char* data = mRender->GetData();
-  // string datacode = mB64Encoder.encode(data, size);
-  // dataElement.AddValue(datacode);
+  ParameterList &dataElement = predicate.parameter.AddList();
+  dataElement.AddValue(std::string("r"));
+  const char* data = mRender->GetData();
+  string datacode = mB64Encoder.encode(data, size);
+  dataElement.AddValue(datacode);
 
   return true;
 }

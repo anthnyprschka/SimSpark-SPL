@@ -822,6 +822,9 @@ importBundle "imageperceptor"
 importBundle "rewardperceptor"
 
 #
+importBundle "isfallenperceptor"
+
+#
 importBundle "batteryperceptor"
 
 #
