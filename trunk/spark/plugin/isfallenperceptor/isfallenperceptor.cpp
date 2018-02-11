@@ -31,8 +31,14 @@ using namespace zeitgeist;
 
 IsFallenPerceptor::IsFallenPerceptor() : oxygen::Perceptor()
 {
-    // TODO
-    //
+
+  SetPredicateName("");
+
+  bool mIsFallen = false;
+
+  // TODO: Choose this value rationally
+  float mThreshold = 0.6;
+
 }
 
 IsFallenPerceptor::~IsFallenPerceptor()
@@ -42,10 +48,59 @@ IsFallenPerceptor::~IsFallenPerceptor()
 bool
 IsFallenPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
 {
-    // TODO
-    // This is where the juice is
 
-    return true;
+
+  cout << "IsFallenPerceptor::Percept executed" << endl;
+
+
+  boost::shared_ptr<Transform> parent = dynamic_pointer_cast<Transform>
+    (FindParentSupportingClass<Transform>().lock());
+
+  // Get current position of agent
+  salt::Vector3f myPos(0,0,0);
+
+  if (parent.get() == 0)
+  {
+    GetLog()->Warning()
+      << "WARNING: (IsFallenPerceptor) parent node is "
+      << "not derived from TransformNode\n";
+  }
+  else
+  {
+    // WorldTransform should be right - we want to position
+    // of the AgentAspect relative to the world, not itself.
+    myPos = parent->GetWorldTransform().Pos();
+  }
+
+
+  cout << "IsFallenPerceptor::myPos " << myPos << endl;
+
+  // TODO: Choose vertical dimension
+  // Which dimension is our vertical dimension though?
+  // Should be either length, or depth, definitely not height
+
+  // TODO: How to address/extract a certain value from a salt::Vector3f?
+  // TODO: Put in the right axis of myPos here
+  // if (XXXX < mThreshold)
+  // {
+  //   mIsFallen = true;
+  // }
+  // else
+  // {
+  //   mIsFallen = false;
+  // }
+
+  // Predicate &predicate = predList->AddPredicate();
+  // predicate.name = mPredicateName + "fallen";
+  // predicate.parameter.Clear();
+
+  // ParameterList &dataElement = predicate.parameter.AddList();
+  // dataElement.AddValue(std::string("fallen"));
+
+  // // TODO: Do I need to encode/serialize the boolean isfallen somehow?
+  // dataElement.AddValue(isfallen);
+
+  return true;
 }
 
 

@@ -43,7 +43,7 @@
 (nd Space
     (setName spacenao)
     (disableInnerCollision true)
-    
+
     ;
     ;The torso part
     ;
@@ -63,7 +63,7 @@
                 )
           )
           )
-        
+
           (false
             (importScene rsg/agent/naov4/box_appearance.rsg $TorsoLength $TorsoWidth $TorsoHeight matGrey)
           )
@@ -100,7 +100,7 @@
         (nd StaticMeshInitEffector)
 
         (nd TimePerceptor)
-        
+
         (nd AgentState
             (setName AgentState)
             (setRobotType 0)
@@ -134,14 +134,30 @@
 
         (nd AgentSyncEffector)
 
+    (nd Transform
+       (setLocalPos 0 0 0)
+       (setLocalRotation 0 0 0)
+       (nd RewardPerceptor
+        (setInterval 1)
+        )
+        )
+
+    (nd Transform
+       (setLocalPos 0 0 0)
+       (setLocalRotation 0 0 0)
+       (nd IsFallenPerceptor
+        (setInterval 1)
+        )
+        )
+
     );end of AgentAspect
-    
-    
+
+
     ;
     ;The neck and head part
     ;
     (importScene rsg/agent/naov4/naoneckhead.rsg $RobotInitX $RobotInitY $RobotInitZ $loadObj)
-    
+
 
     ;
     ;The Right Arm
@@ -156,14 +172,14 @@
     (importScene rsg/agent/naov4/naoarm.rsg
               -1 l
               $RobotInitX $RobotInitY $RobotInitZ $loadObj)
-    
+
     ;
     ;The Right Leg
     ;
     (importScene rsg/agent/naov4/naoleg.rsg
               1 r
               $RobotInitX $RobotInitY $RobotInitZ $loadObj)
-    
+
     ;
     ;The Left Leg
     ;

@@ -74,7 +74,7 @@ bool RewardPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
   if (parent.get() == 0)
   {
     GetLog()->Warning()
-      << "WARNING: (PerfectVisionPerceptor) parent node is "
+      << "WARNING: (RewardPerceptor) parent node is "
       << "not derived from TransformNode\n";
   }
   else
@@ -82,10 +82,20 @@ bool RewardPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
     myPos = parent->GetWorldTransform().Pos();
   }
 
-  // Calculate disposition in 3 dimensions
-  salt::Vector3f = myPos - lastPos;
 
-  // Choose reward
+  cout << "lastPos " << lastPos << endl;
+
+
+  // Calculate disposition in 3 dimensions
+  salt::Vector3f distanceTravelled = myPos - lastPos;
+  lastPos = myPos;
+
+
+  cout << "myPos " << myPos << endl;
+  cout << "distanceTravelled " << distanceTravelled << endl;
+  cout << "lastPos " << lastPos << endl;
+
+  // TODO: Choose reward
   // Which dimension is our reward dimension though?
   // Should be either length, or depth, definitely not height
 
@@ -94,11 +104,11 @@ bool RewardPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
   predicate.name = mPredicateName + "R";
   predicate.parameter.Clear();
 
-  ParameterList &dataElement = predicate.parameter.AddList();
-  dataElement.AddValue(std::string("r"));
-  const char* data = mRender->GetData();
-  string datacode = mB64Encoder.encode(data, size);
-  dataElement.AddValue(datacode);
+  // ParameterList &dataElement = predicate.parameter.AddList();
+  // dataElement.AddValue(std::string("r"));
+  // const char* data = mRender->GetData();
+  // string datacode = mB64Encoder.encode(data, size);
+  // dataElement.AddValue(datacode);
 
   return true;
 }
