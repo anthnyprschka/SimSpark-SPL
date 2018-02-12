@@ -28,6 +28,7 @@
 using namespace oxygen;
 using namespace boost;
 using namespace zeitgeist;
+using namespace std;
 
 IsFallenPerceptor::IsFallenPerceptor() : oxygen::Perceptor()
 {
