@@ -20,6 +20,8 @@
 
 #include "rewardperceptor.h"
 #include <zeitgeist/logserver/logserver.h>
+#include <oxygen/sceneserver/scene.h>
+#include <oxygen/sceneserver/transform.h>
 
 using namespace oxygen;
 using namespace boost;

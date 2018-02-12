@@ -42,6 +42,7 @@ private:
 
     // TODO: Need something here?
     //
+    salt::Vector3f lastPos;
 
 };
 
