@@ -75,7 +75,7 @@ void SimSpark::PrintGreeting()
         << "Universität Koblenz.\n"
         << "Copyright (C) 2004-2016, "
         << "The RoboCup Soccer Server Maintenance Group.\n"
-        << "Status 2 anthnyprschka - modified beameffector.\n"
+        << "Status 3 anthnyprschka - created reseteffector.\n"
         << "\nType '--help' for further information\n\n";
 }
 

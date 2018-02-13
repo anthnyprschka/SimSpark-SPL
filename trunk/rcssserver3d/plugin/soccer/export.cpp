@@ -45,6 +45,7 @@
 #include "fieldflag/fieldflag.h"
 #include "ball/ball.h"
 #include "visionperceptor/visionperceptor.h"
+#include "reseteffector/reseteffector.h"
 #include "restrictedvisionperceptor/restrictedvisionperceptor.h"
 #include "gamestateperceptor/gamestateperceptor.h"
 #include "soccernode/soccernode.h"
@@ -90,6 +91,7 @@ ZEITGEIST_EXPORT_BEGIN()
         ZEITGEIST_EXPORT(AgentStatePerceptor);
         ZEITGEIST_EXPORT(GameStatePerceptor);
         ZEITGEIST_EXPORT(HearPerceptor);
+        ZEITGEIST_EXPORT(ResetEffector);
         ZEITGEIST_EXPORT(RestrictedVisionPerceptor);
         ZEITGEIST_EXPORT(VisionPerceptor);
         ZEITGEIST_EXPORT(GameTimePerceptor);

@@ -27,6 +27,8 @@ set(soccer_LIB_HDRS
    objectstate/objectstate.h
    pantilteffector/pantiltaction.h
    pantilteffector/pantilteffector.h
+   reseteffector/resetaction.h
+   reseteffector/reseteffector.h
    restrictedvisionperceptor/restrictedvisionperceptor.h
    sayeffector/sayaction.h
    sayeffector/sayeffector.h
@@ -98,6 +100,8 @@ set(soccer_LIB_SRCS
    objectstate/objectstate_c.cpp
    pantilteffector/pantilteffector.cpp
    pantilteffector/pantilteffector_c.cpp
+   reseteffector/reseteffector.cpp
+   reseteffector/reseteffector_c.cpp
    restrictedvisionperceptor/restrictedvisionperceptor.cpp
    restrictedvisionperceptor/restrictedvisionperceptor_c.cpp
    sayeffector/sayeffector.cpp

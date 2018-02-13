@@ -125,6 +125,8 @@
 
         (nd BeamEffector)
 
+        (nd ResetEffector)
+
         (nd SayEffector)
 
         ;(nd VisionPerceptor
