@@ -32,7 +32,6 @@ using namespace std;
 RewardPerceptor::RewardPerceptor() : oxygen::Perceptor()
 {
   SetPredicateName("");
-
   salt::Vector3f lastPos(0,0,0);
 }
 
@@ -42,28 +41,16 @@ RewardPerceptor::~RewardPerceptor()
 
 void RewardPerceptor::OnLink()
 {
-  // TODO: Do I need something here?
-  //
-
-  // Yes I want to always store the last timesteps location here
-  // so as to be able to calculate the distance travelled
-  // salt::Vector3f mLastPos = GetWorldTransform().pos();
 
 }
 
 void RewardPerceptor::OnUnlink()
 {
-  // TODO: Do I need something here?
-  //
+
 }
 
 bool RewardPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
 {
-
-  cout << "RewardPerceptor::Percept executed" << endl;
-
-  // TODO: This is the juicy part
-  //
 
   // We want positions relative to the closest parent transform node
   // Which node is this though?
@@ -84,33 +71,24 @@ bool RewardPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
     myPos = parent->GetWorldTransform().Pos();
   }
 
-
-  cout << "lastPos " << lastPos << endl;
-
-
   // Calculate disposition in 3 dimensions
   salt::Vector3f distanceTravelled = myPos - lastPos;
+  float reward = distanceTravelled[0];
   lastPos = myPos;
 
 
-  cout << "myPos " << myPos << endl;
-  cout << "distanceTravelled " << distanceTravelled << endl;
-  cout << "lastPos " << lastPos << endl;
-
-  // TODO: Choose reward
-  // Which dimension is our reward dimension though?
-  // Should be either length, or depth, definitely not height
+  cout << "(rewardperceptor) myPos             " << myPos << endl;
+  cout << "(rewardperceptor) distanceTravelled " << distanceTravelled << endl;
+  cout << "(rewardperceptor) lastPos           " << lastPos << endl;
 
 
   Predicate &predicate = predList->AddPredicate();
   predicate.name = mPredicateName + "R";
   predicate.parameter.Clear();
 
-  // ParameterList &dataElement = predicate.parameter.AddList();
-  // dataElement.AddValue(std::string("r"));
-  // const char* data = mRender->GetData();
-  // string datacode = mB64Encoder.encode(data, size);
-  // dataElement.AddValue(datacode);
+  ParameterList &dataElement = predicate.parameter.AddList();
+  dataElement.AddValue(std::string("r"));
+  dataElement.AddValue(reward);
 
   return true;
 }

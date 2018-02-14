@@ -25,31 +25,31 @@
 #include <oxygen/gamecontrolserver/actionobject.h>
 #include <salt/vector.h>
 
-class BeamAction : public oxygen::ActionObject
+class ResetAction : public oxygen::ActionObject
 {
 public:
-    BeamAction(const std::string& predicate, float posX, float posY, float xyangle)
+    ResetAction(const std::string& predicate, float posX, float posY, float xyangle)
         : ActionObject(predicate), mPosX(posX), mPosY(posY), mXYAngle(xyangle) {}
-    virtual ~BeamAction() {}
+    virtual ~ResetAction() {}
 
-    /** returns x coord of the position the agent wants to Beam to */
+    /** returns x coord of the position the agent wants to Reset to */
     float GetPosX() const { return mPosX; }
 
-    /** returns x coord of the position the agent wants to Beam to */
+    /** returns x coord of the position the agent wants to Reset to */
     float GetPosY() const { return mPosY; }
 
     /** returns the stored angle in the x-y-plane */
     float GetXYAngle() const { return mXYAngle; }
 
 protected:
-    /** the x coord of the position to Beam the agent to */
+    /** the x coord of the position to Reset the agent to */
     float mPosX;
 
-    /** the y coord of the position to Beam the agent to */
+    /** the y coord of the position to Reset the agent to */
     float mPosY;
 
-    /** the angle in the x-y-plane at the position to Beam the agent to */
+    /** the angle in the x-y-plane at the position to Reset the agent to */
     float mXYAngle;
 };
 
-#endif // BeamACTION_H
+#endif // ResetACTION_H

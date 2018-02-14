@@ -50,10 +50,6 @@ bool
 IsFallenPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
 {
 
-
-  cout << "IsFallenPerceptor::Percept executed" << endl;
-
-
   boost::shared_ptr<Transform> parent = dynamic_pointer_cast<Transform>
     (FindParentSupportingClass<Transform>().lock());
 
@@ -68,8 +64,6 @@ IsFallenPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
   }
   else
   {
-    // WorldTransform should be right - we want to position
-    // of the AgentAspect relative to the world, not itself.
     myPos = parent->GetWorldTransform().Pos();
   }
 
@@ -82,24 +76,24 @@ IsFallenPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
 
   // TODO: How to address/extract a certain value from a salt::Vector3f?
   // TODO: Put in the right axis of myPos here
-  // if (XXXX < mThreshold)
-  // {
-  //   mIsFallen = true;
-  // }
-  // else
-  // {
-  //   mIsFallen = false;
-  // }
+  if (myPos[2] < mThreshold)
+  {
+    mIsFallen = true;
+  }
+  else
+  {
+    mIsFallen = false;
+  }
 
-  // Predicate &predicate = predList->AddPredicate();
-  // predicate.name = mPredicateName + "fallen";
-  // predicate.parameter.Clear();
+  Predicate &predicate = predList->AddPredicate();
+  predicate.name = mPredicateName + "fallen";
+  predicate.parameter.Clear();
 
-  // ParameterList &dataElement = predicate.parameter.AddList();
-  // dataElement.AddValue(std::string("fallen"));
+  ParameterList &dataElement = predicate.parameter.AddList();
+  dataElement.AddValue(std::string("fallen"));
 
-  // // TODO: Do I need to encode/serialize the boolean isfallen somehow?
-  // dataElement.AddValue(isfallen);
+  // TODO: Do I need to encode/serialize the boolean isfallen somehow?
+  dataElement.AddValue(isfallen);
 
   return true;
 }
