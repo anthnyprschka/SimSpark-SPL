@@ -76,10 +76,10 @@ ResetEffector::PrePhysicsUpdateInternal(float /*deltaTime*/)
 
 
     Vector3f pos;
-    pos[0] = 0.0 // resetAction->GetPosX()
-    pos[1] = 0.0 // resetAction->GetPosY()
+    pos[0] = 0.0; // resetAction->GetPosX()
+    pos[1] = 0.0; // resetAction->GetPosY()
 
-    float angle = 0.0 // resetAction->GetXYAngle()
+    float angle = 0.0; // resetAction->GetXYAngle()
 
     if (
         (! gIsFinite(pos[0])) ||
