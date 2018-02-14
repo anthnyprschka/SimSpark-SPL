@@ -35,10 +35,10 @@ IsFallenPerceptor::IsFallenPerceptor() : oxygen::Perceptor()
 
   SetPredicateName("");
 
-  bool mIsFallen = false;
+  mIsFallen = false;
 
   // TODO: Choose this value rationally
-  float mThreshold = 0.6;
+  mThreshold = 0.6;
 
 }
 

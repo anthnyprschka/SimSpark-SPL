@@ -36,6 +36,9 @@ public:
 
 private:
 
+    bool mIsFallen;
+    float mThreshold;
+
 };
 
 DECLARE_CLASS(IsFallenPerceptor);
