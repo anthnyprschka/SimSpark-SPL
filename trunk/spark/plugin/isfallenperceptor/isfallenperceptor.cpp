@@ -93,7 +93,7 @@ IsFallenPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
   dataElement.AddValue(std::string("fallen"));
 
   // TODO: Do I need to encode/serialize the boolean isfallen somehow?
-  dataElement.AddValue(isfallen);
+  dataElement.AddValue(mIsfallen);
 
   return true;
 }
