@@ -724,7 +724,7 @@ SoccerBase::MoveAndRotateAgent(boost::shared_ptr<Transform> agent_aspect, const 
          ++iter
          )
         {
-	       boost::shared_ptr<RigidBody> childBody =
+	        boost::shared_ptr<RigidBody> childBody =
                 dynamic_pointer_cast<RigidBody>(*iter);
 
     	    Vector3f childPos = childBody->GetPosition();

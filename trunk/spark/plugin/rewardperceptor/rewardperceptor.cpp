@@ -71,6 +71,10 @@ bool RewardPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
     myPos = parent->GetWorldTransform().Pos();
   }
 
+
+  cout << "(rewardperceptor) lastPos           " << lastPos << endl;
+
+
   // Calculate disposition in 3 dimensions
   salt::Vector3f distanceTravelled = myPos - lastPos;
   float reward = distanceTravelled[0];
@@ -79,7 +83,7 @@ bool RewardPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
 
   cout << "(rewardperceptor) myPos             " << myPos << endl;
   cout << "(rewardperceptor) distanceTravelled " << distanceTravelled << endl;
-  cout << "(rewardperceptor) lastPos           " << lastPos << endl;
+  cout << "(rewardperceptor) reward            " << reward << endl;
 
 
   Predicate &predicate = predList->AddPredicate();

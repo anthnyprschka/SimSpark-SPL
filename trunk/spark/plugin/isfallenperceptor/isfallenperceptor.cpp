@@ -68,7 +68,7 @@ IsFallenPerceptor::Percept(boost::shared_ptr<PredicateList> predList)
   }
 
 
-  cout << "IsFallenPerceptor::myPos " << myPos << endl;
+  cout << "(isfallenperceptor) " << myPos << endl;
 
   // TODO: Choose vertical dimension
   // Which dimension is our vertical dimension though?
